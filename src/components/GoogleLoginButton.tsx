@@ -1,19 +1,20 @@
 "use client"
 
 import { FaGoogle } from "react-icons/fa6"
-import { createClient } from "../lib/supabase/client"
 import { Button } from "./ui/button"
-
-const supabase = createClient()
+import { createClient } from "../lib/supabase/client"
 
 export const GoogleLoginButton = () => {
+  const supabase = createClient()
+
   const loginWithGoogle = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         // Always use the current browser origin so OAuth works on Vercel/preview
         // without depending on NEXT_PUBLIC_BASE_URL (often left as localhost).
-        redirectTo: `${window.location.origin}/auth/callback`,
+        // `next` must live on redirectTo — `queryParams` are sent to Google only, not back to this app.
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent("/dashboard")}`,
       },
     })
   }
