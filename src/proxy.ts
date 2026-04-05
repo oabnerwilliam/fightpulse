@@ -1,8 +1,26 @@
-import { type NextRequest } from "next/server"
-import { updateSession } from "./lib/supabase/proxy"
+import { NextResponse, type NextRequest } from "next/server"
+import { updateSession } from "./lib/supabase/update-session"
+
+const AUTH_REQUIRED_PREFIXES = ["/dashboard", "/payment"] as const
+
+function requiresAuth(pathname: string) {
+  return AUTH_REQUIRED_PREFIXES.some((prefix) => pathname.startsWith(prefix))
+}
 
 export async function proxy(request: NextRequest) {
-  return await updateSession(request)
+  const { response, user } = await updateSession(request)
+
+  if (requiresAuth(request.nextUrl.pathname) && !user) {
+    const url = request.nextUrl.clone()
+    url.pathname = "/"
+    const redirectResponse = NextResponse.redirect(url)
+    response.cookies.getAll().forEach((cookie) => {
+      redirectResponse.cookies.set(cookie.name, cookie.value)
+    })
+    return redirectResponse
+  }
+
+  return response
 }
 
 export const config = {
