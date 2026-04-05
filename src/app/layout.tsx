@@ -6,6 +6,7 @@ import { Container } from "../components/Container"
 import { TanstackQueryProvider } from "../providers/query-client-provider"
 import { getLoggedUser } from "../services/user.service"
 import { AppHeader } from "../components/AppHeader"
+import { NuqsAdapter } from "nuqs/adapters/next"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -25,10 +26,12 @@ export default async function RootLayout({
     <html lang="pt-BR" className={cn("font-sans", inter.variable)}>
       <body className="antialiased">
         <TanstackQueryProvider>
-          <div className="flex min-h-screen flex-col bg-background">
-            {cachedUser && <AppHeader user={cachedUser} />}
-            <Container>{children}</Container>
-          </div>
+          <NuqsAdapter>
+            <div className="flex min-h-screen flex-col bg-background">
+              {cachedUser && <AppHeader user={cachedUser} />}
+              <Container>{children}</Container>
+            </div>
+          </NuqsAdapter>
         </TanstackQueryProvider>
       </body>
     </html>

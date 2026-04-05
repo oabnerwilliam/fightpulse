@@ -1,20 +1,38 @@
-import type { Metadata } from "next"
+"use client"
 
-export const metadata: Metadata = {
-  title: "Dashboard - Fight Pulse",
-  description: "Dashboard do usuário para ver todas as lutas e apostas",
-}
+import { Tabs } from "@/components/Tabs"
+import { parseAsStringEnum, useQueryState } from "nuqs"
+import { FighterList } from "../../components/FighterList"
+import { dashboardTabs } from "./utils"
 
 export default function DashboardPage() {
+  const [activeTab, setActiveTab] = useQueryState(
+    "tab",
+    parseAsStringEnum(dashboardTabs.map((tab) => tab.id)),
+  )
+
   return (
-    <div className="flex max-w-lg flex-col items-center gap-6 text-center">
-      <div className="flex flex-col gap-3">
-        <h1 className="text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          Dashboard
+    <div className="flex w-full max-w-6xl flex-1 flex-col gap-6 py-10">
+      <div className="shrink-0 text-center">
+        <h1 className="text-4xl font-bold text-primary">
+          Bem-vindo ao Dashboard!
         </h1>
-        <p className="text-pretty text-lg leading-relaxed text-muted-foreground">
-          Essa é sua página como usuário do Fight Pulse.
+        <p className="mt-2 text-lg text-muted-foreground">
+          Aqui você pode ver todas as lutas e apostas
         </p>
+      </div>
+      <div className="flex min-h-0 w-full flex-1 flex-col gap-6">
+        <div className="shrink-0 flex justify-center">
+          <Tabs
+            tabs={dashboardTabs}
+            activeTab={activeTab || "FIGHTERS"}
+            setActiveTab={setActiveTab}
+          />
+        </div>
+        {activeTab === "FIGHTERS" ? (
+          <FighterList className="min-h-0 flex-1" />
+        ) : null}
+        {/* {activeTab === "FIGHTS" && <FightList fights={fights} />} */}
       </div>
     </div>
   )
