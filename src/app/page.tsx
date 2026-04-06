@@ -10,7 +10,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 h-screen w-full">
+    <div className="flex flex-col items-center justify-center gap-4 w-full">
       <h1 className="text-4xl font-bold">Fight Pulse</h1>
       <GoogleLoginButton />
     </div>
