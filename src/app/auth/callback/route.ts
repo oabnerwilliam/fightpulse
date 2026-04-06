@@ -31,7 +31,12 @@ export async function GET(request: Request) {
     }
 
     if (!error) {
-      return NextResponse.redirect(`${origin}${next}`)
+      const isLocalEnv = process.env.NODE_ENV === "development"
+      if (isLocalEnv) {
+        return NextResponse.redirect(
+          `${process.env.NEXT_PUBLIC_BASE_URL}${next}`,
+        )
+      }
     }
   }
 
