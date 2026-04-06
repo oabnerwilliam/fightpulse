@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server"
 import { updateSession } from "./lib/supabase/update-session"
 
-const AUTH_REQUIRED_PREFIXES = ["/dashboard", "/payment"] as const
+const AUTH_REQUIRED_PREFIXES = ["/dashboard"] as const
 
 function requiresAuth(pathname: string) {
   return AUTH_REQUIRED_PREFIXES.some((prefix) => pathname.startsWith(prefix))
