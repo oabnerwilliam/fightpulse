@@ -4,11 +4,14 @@ import { Tabs } from "@/components/Tabs"
 import { parseAsStringEnum, useQueryState } from "nuqs"
 import { FighterList } from "../../components/FighterList"
 import { dashboardTabs } from "./utils"
+import { EventList } from "@/components/EventList"
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useQueryState(
     "tab",
-    parseAsStringEnum(dashboardTabs.map((tab) => tab.id)),
+    parseAsStringEnum(dashboardTabs.map((tab) => tab.id)).withDefault(
+      dashboardTabs[0].id,
+    ),
   )
 
   return (
@@ -29,10 +32,10 @@ export default function DashboardPage() {
             setActiveTab={setActiveTab}
           />
         </div>
+        {activeTab === "EVENTS" && <EventList className="min-h-0 flex-1" />}
         {activeTab === "FIGHTERS" ? (
           <FighterList className="min-h-0 flex-1" />
         ) : null}
-        {/* {activeTab === "FIGHTS" && <FightList fights={fights} />} */}
       </div>
     </div>
   )

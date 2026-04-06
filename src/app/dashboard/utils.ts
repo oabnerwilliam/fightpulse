@@ -5,11 +5,11 @@ export type TabItem = {
 
 export const dashboardTabs: TabItem[] = [
   {
-    id: "FIGHTERS",
-    label: "Lutadores",
+    id: "EVENTS",
+    label: "Eventos",
   },
   {
-    id: "FIGHTS",
-    label: "Lutas",
+    id: "FIGHTERS",
+    label: "Lutadores",
   },
 ]
