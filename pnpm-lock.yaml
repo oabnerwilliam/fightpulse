@@ -32,12 +32,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      countriesjs:
-        specifier: ^1.0.3
-        version: 1.0.3
-      country-flag-emojis:
-        specifier: ^1.0.4
-        version: 1.0.4
       country-flag-icons:
         specifier: ^1.6.15
         version: 1.6.15
@@ -1449,13 +1443,6 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
-
-  countriesjs@1.0.3:
-    resolution: {integrity: sha512-rihXnl0Xdng+SRdIqPIgeh0n27BfrqoTV/bLBxUElfZS9cmfXch/6U23YyqZ7QQ9FMQjMpCMGAbLfJJYqfjcSA==}
-
-  country-flag-emojis@1.0.4:
-    resolution: {integrity: sha512-DE77gUtVKh3FzaBedd7DPZ+OfjyaT1DyxjbcmL6X7lw938WueqS2mcUVCaVut+CMZMLJsLtFwf9XQWOIzlCtDA==}
-    engines: {node: '>=14.0.0'}
 
   country-flag-icons@1.6.15:
     resolution: {integrity: sha512-92HoA8l6DluEidku8tKBftjuFRj4Rv3zDW1lXxCuNnqAxhUSkvso9gM/Afj4F5BnK+wneHIe3ydI+s+4NA29/Q==}
@@ -3347,9 +3334,6 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typy@3.3.0:
-    resolution: {integrity: sha512-Du53deMF9X9pSM3gVXDjLBq14BUfZWSGKfmmR1kTlg953RaIZehfc8fQuoAiW+SRO6bJsP+59mv1tsH8vwKghg==}
-
   unbox-primitive@1.1.0:
     resolution: {integrity: sha512-nWJ91DjeOkej/TA8pXQ3myruKpKEYgqvpw9lz4OPHj/NWFNluYrjbz9j01CJ8yKQd2g4jFoOkINCTW2I5LEEyw==}
     engines: {node: '>= 0.4'}
@@ -4892,12 +4876,6 @@ snapshots:
       parse-json: 5.2.0
     optionalDependencies:
       typescript: 5.9.3
-
-  countriesjs@1.0.3:
-    dependencies:
-      typy: 3.3.0
-
-  country-flag-emojis@1.0.4: {}
 
   country-flag-icons@1.6.15: {}
 
@@ -6992,8 +6970,6 @@ snapshots:
       - supports-color
 
   typescript@5.9.3: {}
-
-  typy@3.3.0: {}
 
   unbox-primitive@1.1.0:
     dependencies:
