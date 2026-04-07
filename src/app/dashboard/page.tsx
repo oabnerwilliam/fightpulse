@@ -2,9 +2,9 @@
 
 import { Tabs } from "@/components/Tabs"
 import { parseAsStringEnum, useQueryState } from "nuqs"
-import { FighterList } from "../../components/FighterList"
-import { dashboardTabs } from "./utils"
-import { EventList } from "@/components/EventList"
+import { FighterList } from "./components/FighterList"
+import { dashboardTabs } from "./utils/functions"
+import { EventList } from "./components/EventList"
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useQueryState(

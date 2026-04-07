@@ -11,9 +11,6 @@ export const GoogleLoginButton = () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        // Always use the current browser origin so OAuth works on Vercel/preview
-        // without depending on NEXT_PUBLIC_BASE_URL (often left as localhost).
-        // `next` must live on redirectTo — `queryParams` are sent to Google only, not back to this app.
         redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent("/dashboard")}`,
       },
     })

@@ -1,5 +1,5 @@
 import { Tab } from "@/components/Tab"
-import { TabItem } from "../app/dashboard/utils"
+import { TabItem } from "../app/dashboard/utils/functions"
 
 type TabsProps = {
   tabs: TabItem[]

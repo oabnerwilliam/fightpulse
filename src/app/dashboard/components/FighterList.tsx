@@ -1,15 +1,15 @@
 "use client"
 
-import { FighterCard, type Fighter } from "@/components/FighterCard"
+import { FighterCard, type Fighter } from "./FighterCard"
 import { parseAsString, useQueryState } from "nuqs"
-import { Input } from "./ui/input"
+import { Input } from "@/components/ui/input"
 import { useForm } from "react-hook-form"
-import { Button } from "./ui/button"
+import { Button } from "@/components/ui/button"
 import { useQuery } from "@tanstack/react-query"
 import { Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-type FightersApiResponse = {
+export type FightersApiResponse = {
   response?: Fighter[]
 }
 
