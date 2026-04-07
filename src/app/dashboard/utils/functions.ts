@@ -21,6 +21,23 @@ export const getCountryCode = (countryName: string) => {
   return country?.["alpha-2"]
 }
 
+/** Separa o título completo no primeiro ":" (ex.: nome do card vs. luta principal). */
+export type ParsedEventTitle = {
+  eventName: string
+  mainEvent: string
+}
+
+export function parseEventTitle(fullName: string): ParsedEventTitle {
+  const idx = fullName.indexOf(":")
+  if (idx === -1) {
+    return { eventName: fullName.trim(), mainEvent: "" }
+  }
+  return {
+    eventName: fullName.slice(0, idx).trim(),
+    mainEvent: fullName.slice(idx + 1).trim(),
+  }
+}
+
 export const fightMock = {
   data: [
     {
