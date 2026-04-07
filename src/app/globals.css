@@ -128,3 +128,57 @@
     @apply font-sans;
   }
 }
+
+/* Brilho: atravessa e sai à direita; pausa; reset sem interpolar o brilho de volta (evita ficar “preso” na borda) */
+@keyframes hero-title-red-shine {
+  0%,
+  58% {
+    background-position: 0% 50%;
+  }
+  /* fim do passe: highlight já saiu do texto (>100% no eixo do fundo) */
+  70% {
+    background-position: 165% 50%;
+  }
+  /* curto hold no vermelho “limpo” à direita (brilho fora da área visível) */
+  71% {
+    background-position: 165% 50%;
+  }
+  /* salto quase instantâneo para a posição inicial (sem animar o retorno do brilho) */
+  71.01%,
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@layer utilities {
+  .hero-title-red-shine {
+    background-image: linear-gradient(
+      90deg,
+      rgb(239 68 68) 0%,
+      rgb(239 68 68) 38%,
+      rgb(254 226 226) 50%,
+      rgb(239 68 68) 62%,
+      rgb(239 68 68) 100%
+    );
+    /* só alongar na horizontal; altura 100% evita “encolher” o gradiente e cortar descendentes (ex.: g) */
+    background-size: 280% 100%;
+    background-position: 0 50%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    /* respiro para descendentes dentro da caixa pintada com clip de texto */
+    padding-block: 0.06em 0.14em;
+    overflow: visible;
+    animation: hero-title-red-shine 12s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-title-red-shine {
+      animation: none;
+      background-image: none;
+      color: rgb(239 68 68);
+      -webkit-background-clip: unset;
+      background-clip: unset;
+    }
+  }
+}

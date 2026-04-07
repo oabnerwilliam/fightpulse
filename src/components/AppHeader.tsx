@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import clsx from "clsx"
 import { createClient } from "../lib/supabase/client"
 import { useRouter } from "next/navigation"
+import { Logo } from "./Logo"
 
 export function AppHeader({ user }: { user: any }) {
   const router = useRouter()
@@ -18,9 +19,7 @@ export function AppHeader({ user }: { user: any }) {
 
   return (
     <header className="flex w-full items-center justify-between bg-background px-10 py-6 shadow-md fixed top-0 left-0 right-0 z-50">
-      <h1 className="font-bold tracking-wide text-foreground text-3xl">
-        FIGHT<span className="text-red-500">PULSE</span>
-      </h1>
+      <Logo />
       <div className="flex items-center gap-2">
         <Button
           type="button"
