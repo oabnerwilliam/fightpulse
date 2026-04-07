@@ -3,8 +3,14 @@
 import { FaGoogle } from "react-icons/fa6"
 import { Button } from "./ui/button"
 import { createClient } from "../lib/supabase/client"
+import { cn } from "@/lib/utils"
+import { ctaVisualClassName } from "@/lib/cta-styles"
 
-export const GoogleLoginButton = () => {
+type GoogleLoginButtonProps = {
+  className?: string
+}
+
+export function GoogleLoginButton({ className }: GoogleLoginButtonProps) {
   const supabase = createClient()
 
   const loginWithGoogle = async () => {
@@ -18,12 +24,17 @@ export const GoogleLoginButton = () => {
 
   return (
     <Button
-      variant="outline"
+      type="button"
       onClick={loginWithGoogle}
-      className="h-auto w-fit min-h-11 gap-2.5 border-neutral-200 bg-white px-6 py-3 text-base font-medium text-black shadow-sm hover:bg-neutral-50 hover:shadow-md hover:cursor-pointer [&_svg]:size-4.5"
+      className={cn(
+        ctaVisualClassName("soft"),
+        /* Button base usa transition-all; isso deixa escala/sombra/fundo fora de fase */
+        "h-auto min-h-11 w-full justify-center gap-2.5 px-6 py-3 font-medium [&_svg]:size-5 [&_svg]:shrink-0",
+        className,
+      )}
     >
-      <FaGoogle />
-      Entrar com Google
+      <FaGoogle aria-hidden />
+      Continuar com Google
     </Button>
   )
 }

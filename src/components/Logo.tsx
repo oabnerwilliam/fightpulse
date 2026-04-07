@@ -1,7 +1,20 @@
-export const Logo = () => {
+import { cn } from "@/lib/utils"
+
+type LogoProps = {
+  as?: "h1" | "span"
+  className?: string
+}
+
+export const Logo = ({ as = "h1", className }: LogoProps) => {
+  const Comp = as
   return (
-    <h1 className="font-bold tracking-wide text-foreground text-3xl">
+    <Comp
+      className={cn(
+        "font-bold tracking-wide text-foreground text-3xl",
+        className,
+      )}
+    >
       FIGHT<span className="text-red-500">PULSE</span>
-    </h1>
+    </Comp>
   )
 }
