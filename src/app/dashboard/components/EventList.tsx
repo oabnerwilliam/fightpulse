@@ -38,7 +38,7 @@ export const EventList = ({ className }: EventListProps) => {
   return (
     <div
       className={cn(
-        "flex min-h-0 w-full flex-col items-start gap-6 px-6",
+        "flex min-h-0 w-full flex-col items-start gap-6 px-2",
         className,
       )}
     >
