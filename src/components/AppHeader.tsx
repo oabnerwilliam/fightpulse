@@ -25,7 +25,7 @@ export function AppHeader({ user }: { user: any }) {
   }
 
   return (
-    <header className="flex w-full items-center justify-between bg-background px-10 py-4 shadow-md fixed top-0 left-0 right-0 z-50">
+    <header className="flex w-full items-center justify-between bg-background px-6 py-4 shadow-md fixed top-0 left-0 right-0 z-50">
       <Logo />
       <div className="flex items-center gap-2">
         <DropdownMenu>
