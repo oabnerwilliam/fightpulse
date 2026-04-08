@@ -17,4 +17,12 @@ model User {
   authId String @unique
   name String
   isPremium Boolean @default(false)
+  @@map("user")
+}
+
+model FighterExternalIdMap {
+  id String @id @default(uuid())
+  ball_dont_lie_id Int @unique
+  api_sports_id Int @unique
+  @@map("fighter_external_id_map")
 }
