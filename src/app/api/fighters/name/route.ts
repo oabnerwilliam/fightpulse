@@ -1,11 +1,8 @@
 import { NextRequest } from "next/server"
-import {
-  MMA_FIGHTERS_URL,
-  fetchFightersBySearch,
-} from "@/lib/api-sports-fighters"
+import { fetchFightersByName } from "@/lib/api-sports-fighters"
 
 export async function GET(request: NextRequest) {
-  const search = request.nextUrl.searchParams.get("search") ?? ""
+  const name = request.nextUrl.searchParams.get("name") ?? ""
   const apiKey = process.env.API_SPORTS_API_KEY
 
   if (!apiKey) {
@@ -15,12 +12,11 @@ export async function GET(request: NextRequest) {
     )
   }
 
-  const upstream = search
-    ? await fetchFightersBySearch(search, apiKey)
-    : await fetch(MMA_FIGHTERS_URL, {
-        headers: { "x-apisports-key": apiKey },
-      })
+  if (!name.trim()) {
+    return Response.json({ error: "name query required" }, { status: 400 })
+  }
 
+  const upstream = await fetchFightersByName(name.trim(), apiKey)
   const data = await upstream.json()
   return Response.json(data, { status: upstream.status })
 }

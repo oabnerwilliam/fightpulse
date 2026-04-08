@@ -17,7 +17,11 @@ export const dashboardTabs: TabItem[] = [
 ]
 
 export const getCountryCode = (countryName: string) => {
-  const country = countriesList.find((country) => country.name === countryName)
+  const normalizedCountryName =
+    countryName === "USA" ? "United States of America" : countryName
+  const country = countriesList.find(
+    (country) => country.name === normalizedCountryName,
+  )
   return country?.["alpha-2"]
 }
 
@@ -36,6 +40,18 @@ export function parseEventTitle(fullName: string): ParsedEventTitle {
     eventName: fullName.slice(0, idx).trim(),
     mainEvent: fullName.slice(idx + 1).trim(),
   }
+}
+
+export function normalizeName(name: string): string {
+  return name
+    .normalize("NFKD")
+    .replace(/\p{M}/gu, "")
+    .replace(/ß/g, "ss")
+    .replace(/Œ/g, "OE")
+    .replace(/œ/g, "oe")
+    .replace(/Æ/g, "AE")
+    .replace(/æ/g, "ae")
+    .trim()
 }
 
 export const fightMock = {
@@ -126,6 +142,98 @@ export const fightMock = {
       card_segment: "main_card",
       fight_order: 1,
       scheduled_rounds: 5,
+      result_method: null,
+      result_method_detail: null,
+      result_round: null,
+      result_time: null,
+      status: "scheduled",
+    },
+    {
+      id: 28111,
+      event: {
+        id: 38983,
+        name: "UFC 326: Holloway vs. Oliveira 2",
+        short_name: "UFC 326: Holloway vs. Oliveira 2",
+        date: "2026-03-07T17:00:00.000Z",
+        venue_name: "T-Mobile Arena",
+        venue_city: "Las Vegas",
+        venue_state: "NV",
+        venue_country: "USA",
+        status: "scheduled",
+        main_card_start_time: null,
+        prelims_start_time: null,
+        early_prelims_start_time: null,
+        league: {
+          id: 1,
+          name: "UFC",
+          abbreviation: "UFC",
+        },
+      },
+      fighter1: {
+        id: 5106,
+        name: "Charles Oliveira",
+        first_name: "Charles",
+        last_name: "Oliveira",
+        nickname: "Do Bronxs",
+        date_of_birth: "1989-10-16T00:00:00.000Z",
+        birth_place: null,
+        nationality: "Brazil",
+        height_inches: 70,
+        reach_inches: 74,
+        weight_lbs: 156,
+        stance: "Orthodox",
+        record_wins: 36,
+        record_losses: 11,
+        record_draws: 0,
+        record_no_contests: 0,
+        active: true,
+        weight_class: {
+          id: 5,
+          name: "Lightweight",
+          abbreviation: "LW",
+          weight_limit_lbs: 155,
+          gender: "Male",
+        },
+      },
+      fighter2: {
+        id: 6515,
+        name: "Max Holloway",
+        first_name: "Max",
+        last_name: "Holloway",
+        nickname: "Blessed",
+        date_of_birth: "1991-12-03T00:00:00.000Z",
+        birth_place: null,
+        nationality: "USA",
+        height_inches: 71,
+        reach_inches: 69,
+        weight_lbs: 155,
+        stance: "Orthodox",
+        record_wins: 27,
+        record_losses: 8,
+        record_draws: 0,
+        record_no_contests: 0,
+        active: true,
+        weight_class: {
+          id: 5,
+          name: "Lightweight",
+          abbreviation: "LW",
+          weight_limit_lbs: 155,
+          gender: "Male",
+        },
+      },
+      winner: null,
+      weight_class: {
+        id: 5,
+        name: "Lightweight",
+        abbreviation: "LW",
+        weight_limit_lbs: 155,
+        gender: "Male",
+      },
+      is_main_event: true,
+      is_title_fight: false,
+      card_segment: "main_card",
+      fight_order: 1,
+      scheduled_rounds: 3,
       result_method: null,
       result_method_detail: null,
       result_round: null,
