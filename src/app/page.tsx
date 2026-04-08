@@ -19,7 +19,7 @@ export default async function Home() {
       <MarketingHeader />
       <HomeContainer>
         <div className="container mx-auto flex w-full min-w-0 max-w-full flex-1 flex-col items-center justify-center gap-8 px-4 sm:px-6">
-          <div className="flex w-full min-w-0 max-w-xl flex-col items-center gap-4 text-center break-words">
+          <div className="flex w-full min-w-0 max-w-xl flex-col items-center gap-4 text-center wrap-break-word">
             <HeroBadge />
             <Title />
             <Subtitle />
