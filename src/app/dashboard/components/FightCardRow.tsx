@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card"
 import { getCountryCode } from "@/app/dashboard/utils/functions"
 import type { FightFromMock } from "@/app/dashboard/utils/types"
+import { cn } from "@/lib/utils"
 import { useMemo } from "react"
 
 export function FightCardRow({ fight }: { fight: FightFromMock }) {
@@ -16,22 +17,30 @@ export function FightCardRow({ fight }: { fight: FightFromMock }) {
   }, [fight])
 
   return (
-    <Card className="hover:cursor-pointer hover:shadow-lg ease-in-out duration-300 py-4">
-      <CardContent className="flex w-full justify-between items-center px-26">
+    <Card className="duration-300 ease-in-out hover:cursor-pointer hover:shadow-lg">
+      <CardContent className="flex w-full min-w-0 flex-col gap-5 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6 sm:py-4">
         {fighters.map((fighter, index) => (
-          <div className="flex gap-6" key={fighter.id}>
+          <div
+            className={cn(
+              "flex min-w-0 items-center gap-3 sm:flex-1 sm:gap-6",
+              index === 0
+                ? "justify-center sm:justify-start"
+                : "justify-center sm:justify-end",
+            )}
+            key={fighter.id}
+          >
             {index === 0 ? (
               <img
                 alt={fighter.nationality}
                 src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${getCountryCode(fighter.nationality)}.svg`}
-                className="rounded-3xl size-20"
+                className="size-14 shrink-0 rounded-3xl sm:size-20"
               />
             ) : null}
-            <div className="flex flex-col justify-center items-center">
-              <CardTitle className="text-2xl font-bold">
+            <div className="flex min-w-0 flex-col items-center justify-center text-center sm:min-w-0">
+              <CardTitle className="wrap-break-word text-lg font-bold sm:text-2xl">
                 {fighter.name}
               </CardTitle>
-              <CardDescription className="flex flex-col items-center">
+              <CardDescription className="flex flex-col items-center wrap-break-word">
                 <span className="text-sm text-muted-foreground">
                   &quot;{fighter.nickname}&quot;
                 </span>
@@ -43,7 +52,7 @@ export function FightCardRow({ fight }: { fight: FightFromMock }) {
               <img
                 alt={fighter.nationality}
                 src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${getCountryCode(fighter.nationality)}.svg`}
-                className="rounded-3xl size-20"
+                className="size-14 shrink-0 rounded-3xl sm:size-20"
               />
             ) : null}
           </div>

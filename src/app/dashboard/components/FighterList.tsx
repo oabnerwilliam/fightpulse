@@ -51,14 +51,14 @@ export function FighterList({ className }: FighterListProps) {
   return (
     <div
       className={cn(
-        "flex min-h-0 w-full flex-col items-start gap-6",
+        "flex min-h-0 w-full flex-col items-start gap-6 px-6",
         className,
       )}
     >
       <form onSubmit={onSubmit} className="flex shrink-0 items-center gap-2">
         <Input
           placeholder="Pesquisar lutador"
-          className="text-3xl outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="text-md sm:text-3xl outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
           {...register("search")}
         />
         <Button type="submit" className="shrink-0 hover:cursor-pointer">
@@ -82,7 +82,7 @@ export function FighterList({ className }: FighterListProps) {
             Comece a pesquisar por um lutador
           </div>
         ) : fighters.length > 0 ? (
-          <div className="grid w-full grid-cols-3 gap-6">
+          <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {fighters.map((fighter) => (
               <FighterCard key={fighter.id} fighter={fighter} />
             ))}
