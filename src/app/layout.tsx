@@ -11,8 +11,17 @@ import { NuqsAdapter } from "nuqs/adapters/next"
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
 export const metadata: Metadata = {
-  title: "Fight Pulse",
-  description: "Fight Pulse is a platform to see all the fights and bets",
+  title: "Fight Pulse · Plataforma de lutas e apostas",
+  description: "Fight Pulse é uma plataforma para ver todas as lutas e apostas",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "Fight Pulse",
+    description:
+      "Fight Pulse é uma plataforma para ver todas as lutas e apostas",
+    images: "/logo.png",
+  },
 }
 
 export default async function RootLayout({

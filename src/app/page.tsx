@@ -18,15 +18,17 @@ export default async function Home() {
     <div className="flex min-h-screen w-full flex-col">
       <MarketingHeader />
       <HomeContainer>
-        <div className="container mx-auto w-full px-4 sm:px-6 flex-1 flex flex-col items-center justify-center gap-8">
-          <div className="flex max-w-xl flex-col items-center gap-4 text-center">
+        <div className="container mx-auto flex w-full min-w-0 max-w-full flex-1 flex-col items-center justify-center gap-8 px-4 sm:px-6">
+          <div className="flex w-full min-w-0 max-w-xl flex-col items-center gap-4 text-center break-words">
             <HeroBadge />
             <Title />
             <Subtitle />
           </div>
-          <CtaLink href="/login" radius="soft">
-            Entrar no mundo das lutas
-          </CtaLink>
+          <div className="flex w-full min-w-0 justify-center">
+            <CtaLink href="/login" radius="soft">
+              Entrar no mundo das lutas
+            </CtaLink>
+          </div>
         </div>
       </HomeContainer>
     </div>

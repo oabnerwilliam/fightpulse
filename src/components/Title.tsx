@@ -18,12 +18,13 @@ export function Title({ className, children, ...props }: TitleProps) {
   return (
     <h1
       className={cn(
-        "text-foreground text-9xl font-bold tracking-tight sm:text-6xl",
+        "text-foreground text-4xl font-bold tracking-tight sm:text-6xl",
         className,
       )}
       {...props}
     >
       Tudo sobre lutas,
+      <br />
       <span className="hero-title-red-shine inline-block">
         {" "}
         em um só lugar.

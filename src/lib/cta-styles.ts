@@ -7,7 +7,7 @@ export type CtaRadius = "pill" | "soft"
 export function ctaVisualClassName(radius: CtaRadius = "pill") {
   return cn(
     buttonVariants({ variant: "default" }),
-    "group h-11 gap-2 border-transparent bg-red-500 p-6 text-sm font-medium text-white shadow-none transition-[transform,box-shadow,background-color] duration-300 ease-out hover:scale-105 hover:bg-red-600 cursor-pointer hover:shadow-[0_0_18px_6px_rgba(239,68,68,0.55)] focus-visible:ring-red-500/40 dark:bg-red-500 dark:hover:bg-red-600",
+    "group min-h-11 shrink min-w-0 max-w-full gap-2 border-transparent bg-red-500 px-4 py-3 text-xs sm:text-sm font-medium text-white whitespace-normal shadow-none transition-[transform,box-shadow,background-color] duration-300 ease-out hover:scale-105 hover:bg-red-600 cursor-pointer hover:shadow-[0_0_18px_6px_rgba(239,68,68,0.55)] focus-visible:ring-red-500/40 sm:p-6 dark:bg-red-500 dark:hover:bg-red-600",
     radius === "pill" && "rounded-4xl",
     radius === "soft" && "rounded-2xl",
   )

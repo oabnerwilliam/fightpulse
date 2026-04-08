@@ -11,7 +11,7 @@ export const Container = async ({
   return (
     <div
       className={clsx(
-        "container mx-auto flex flex-1 flex-col items-center justify-center px-4",
+        "container sm:mx-auto flex flex-1 flex-col items-center justify-center sm:px-4",
         cachedUser && "mt-32",
       )}
     >
