@@ -1,14 +1,12 @@
-import { EventList } from "./components/EventList"
+import { EventList } from "../components/EventList"
 
-export default function DashboardPage() {
+export default function DashboardEventsPage() {
   return (
     <div className="flex w-full max-w-6xl flex-1 flex-col gap-6 px-4">
       <div className="shrink-0 text-center">
-        <h1 className="text-4xl font-bold text-primary">
-          Bem-vindo ao Dashboard!
-        </h1>
+        <h1 className="text-4xl font-bold text-primary">Eventos</h1>
         <p className="mt-2 text-lg text-muted-foreground">
-          Aqui você pode ver todas as lutas e apostas
+          Próximos eventos agendados
         </p>
       </div>
       <div className="flex min-h-0 w-full flex-1 flex-col gap-6">

@@ -5,17 +5,6 @@ export type TabItem = {
   label: string
 }
 
-export const dashboardTabs: TabItem[] = [
-  {
-    id: "EVENTS",
-    label: "Eventos",
-  },
-  {
-    id: "FIGHTERS",
-    label: "Lutadores",
-  },
-]
-
 export const getCountryCode = (countryName: string) => {
   const normalizedCountryName =
     countryName === "USA" ? "United States of America" : countryName
