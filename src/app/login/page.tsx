@@ -23,7 +23,7 @@ export default async function LoginPage() {
     <div className="flex min-h-0 w-full flex-1 flex-col">
       <MarketingHeader />
       <div className="flex flex-1 flex-col items-center justify-center px-10 py-12">
-        <MetallicCard className="w-full transition-all duration-300">
+        <MetallicCard className="w-full transition-all duration-300 max-w-md">
           <CardContent className="flex flex-col items-center gap-4 px-6 py-12 text-center">
             <Logo />
             <div className="flex flex-col items-center gap-1 text-center">
