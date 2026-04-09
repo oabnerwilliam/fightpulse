@@ -11,9 +11,10 @@ import type { FightFromMock } from "@/app/dashboard/utils/types"
 import { cn } from "@/lib/utils"
 import { useFighters } from "../hooks/useFighters"
 import { MetallicCard } from "../../../components/MetallicCard"
+import { FighterPhotoAvatar } from "./FighterPhotoAvatar"
 
 export function FightCardRow({ fight }: { fight: FightFromMock }) {
-  const { fighters } = useFighters({ fight })
+  const { fighters, isLoading } = useFighters({ fight })
 
   return (
     <MetallicCard className="duration-300 ease-in-out hover:cursor-pointer hover:scale-101">
@@ -35,13 +36,12 @@ export function FightCardRow({ fight }: { fight: FightFromMock }) {
                   src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${getCountryCode(fighter.nationality)}.svg`}
                   className="shrink-0 rounded-3xl size-10"
                 />
-                {fighter.photo ? (
-                  <img
-                    alt={fighter.name}
-                    src={fighter.photo}
-                    className="size-14 shrink-0 rounded-full object-cover sm:size-20"
-                  />
-                ) : null}
+                <FighterPhotoAvatar
+                  src={fighter.photo}
+                  alt={fighter.name}
+                  className="size-14 sm:size-20"
+                  isLoading={isLoading}
+                />
               </>
             ) : null}
             <div className="flex min-w-0 flex-col items-center justify-center text-center sm:min-w-0">
@@ -58,13 +58,12 @@ export function FightCardRow({ fight }: { fight: FightFromMock }) {
             </div>
             {index === 1 ? (
               <>
-                {fighter.photo ? (
-                  <img
-                    alt={fighter.name}
-                    src={fighter.photo}
-                    className="size-14 shrink-0 rounded-full object-cover sm:size-20"
-                  />
-                ) : null}
+                <FighterPhotoAvatar
+                  src={fighter.photo}
+                  alt={fighter.name}
+                  className="size-14 sm:size-20"
+                  isLoading={isLoading}
+                />
                 <img
                   alt={fighter.nationality}
                   src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${getCountryCode(fighter.nationality)}.svg`}

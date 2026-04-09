@@ -21,6 +21,7 @@ import {
 import type { Event } from "@/app/dashboard/utils/types"
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6"
 import { FightCardRow } from "./FightCardRow"
+import { FighterPhotoAvatar } from "./FighterPhotoAvatar"
 import { MetallicCard } from "@/components/MetallicCard"
 import { useFighters } from "../hooks/useFighters"
 
@@ -35,7 +36,7 @@ export function EventCard({ event }: EventCardProps) {
   }
   const { eventName } = parseEventTitle(event.name)
   const mainFight = fightMock.data.find((fight) => fight.is_main_event)!
-  const { fighters } = useFighters({ fight: mainFight })
+  const { fighters, isLoading } = useFighters({ fight: mainFight })
   const leftFighter = fighters[0]
   const rightFighter = fighters[1]
 
@@ -48,15 +49,12 @@ export function EventCard({ event }: EventCardProps) {
               <div className="order-2 flex min-w-0 flex-col items-center text-center md:order-1 md:flex-1">
                 {leftFighter ? (
                   <>
-                    {leftFighter.photo ? (
-                      <img
-                        alt={leftFighter.name}
-                        src={leftFighter.photo}
-                        className="size-20 shrink-0 rounded-full object-cover md:size-28"
-                      />
-                    ) : (
-                      <div className="size-20 shrink-0 rounded-full bg-muted md:size-28" />
-                    )}
+                    <FighterPhotoAvatar
+                      src={leftFighter.photo}
+                      alt={leftFighter.name}
+                      className="size-20 md:size-28"
+                      isLoading={isLoading}
+                    />
                     <p className="mt-2 wrap-break-word text-lg font-bold md:mt-3 md:text-2xl">
                       {removeFirstName(leftFighter.name) ||
                         leftFighter.last_name ||
@@ -81,15 +79,12 @@ export function EventCard({ event }: EventCardProps) {
               <div className="order-3 flex min-w-0 flex-col items-center text-center md:flex-1">
                 {rightFighter ? (
                   <>
-                    {rightFighter.photo ? (
-                      <img
-                        alt={rightFighter.name}
-                        src={rightFighter.photo}
-                        className="size-20 shrink-0 rounded-full object-cover md:size-28"
-                      />
-                    ) : (
-                      <div className="size-20 shrink-0 rounded-full bg-muted md:size-28" />
-                    )}
+                    <FighterPhotoAvatar
+                      src={rightFighter.photo}
+                      alt={rightFighter.name}
+                      className="size-20 md:size-28"
+                      isLoading={isLoading}
+                    />
                     <p className="mt-2 wrap-break-word text-lg font-bold md:mt-3 md:text-2xl">
                       {removeFirstName(rightFighter.name) ||
                         rightFighter.last_name ||

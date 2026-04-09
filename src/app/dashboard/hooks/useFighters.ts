@@ -12,7 +12,7 @@ export const useFighters = ({ fight }: { fight: FightFromMock }) => {
     fight.fighter2.name,
   ] as const
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: photosQueryKey,
     queryFn: async () => {
       const params = new URLSearchParams()
@@ -39,5 +39,5 @@ export const useFighters = ({ fight }: { fight: FightFromMock }) => {
     }))
   }, [fight, data?.photosByBallId])
 
-  return { fighters }
+  return { fighters, isLoading }
 }
