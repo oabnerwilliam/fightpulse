@@ -54,6 +54,11 @@ export function normalizeName(name: string): string {
     .trim()
 }
 
+export function removeFirstName(fullName: string): string {
+  const parts = fullName.trim().split(/\s+/).filter(Boolean)
+  return parts.slice(1).join(" ").trim()
+}
+
 export const fightMock = {
   data: [
     {
@@ -137,10 +142,10 @@ export const fightMock = {
         weight_limit_lbs: 265,
         gender: "Male",
       },
-      is_main_event: true,
+      is_main_event: false,
       is_title_fight: true,
       card_segment: "main_card",
-      fight_order: 1,
+      fight_order: 2,
       scheduled_rounds: 5,
       result_method: null,
       result_method_detail: null,
@@ -151,13 +156,13 @@ export const fightMock = {
     {
       id: 28111,
       event: {
-        id: 38983,
-        name: "UFC 326: Holloway vs. Oliveira 2",
-        short_name: "UFC 326: Holloway vs. Oliveira 2",
-        date: "2026-03-07T17:00:00.000Z",
-        venue_name: "T-Mobile Arena",
-        venue_city: "Las Vegas",
-        venue_state: "NV",
+        id: 1,
+        name: "UFC 327: Procházka vs. Ulberg",
+        short_name: "UFC 327: Procházka vs. Ulberg",
+        date: "2026-04-11T21:30:00.000Z",
+        venue_name: "Kaseya Center",
+        venue_city: "Miami",
+        venue_state: "FL",
         venue_country: "USA",
         status: "scheduled",
         main_card_start_time: null,

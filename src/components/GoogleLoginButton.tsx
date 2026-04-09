@@ -29,7 +29,7 @@ export function GoogleLoginButton({ className }: GoogleLoginButtonProps) {
       className={cn(
         ctaVisualClassName(),
         /* Button base usa transition-all; isso deixa escala/sombra/fundo fora de fase */
-        "h-auto min-h-11 w-full justify-center gap-2.5 px-6 py-3 font-medium [&_svg]:size-5 [&_svg]:shrink-0",
+        "h-auto min-h-11 w-full justify-center gap-2.5 font-medium [&_svg]:size-5 [&_svg]:shrink-0",
         className,
       )}
     >

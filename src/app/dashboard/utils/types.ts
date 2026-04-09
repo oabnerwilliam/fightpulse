@@ -23,3 +23,7 @@ export type EventsApiResponse = {
 export type EventListProps = {
   className?: string
 }
+
+export type FightFightersPhotosResponse = {
+  photosByBallId: Record<string, string>
+}

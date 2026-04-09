@@ -9,51 +9,14 @@ import {
 import { getCountryCode } from "@/app/dashboard/utils/functions"
 import type { FightFromMock } from "@/app/dashboard/utils/types"
 import { cn } from "@/lib/utils"
-import { useMemo } from "react"
-import { useQuery } from "@tanstack/react-query"
-
-type FightFightersPhotosResponse = {
-  photosByBallId: Record<string, string>
-}
+import { useFighters } from "../hooks/useFighters"
+import { MetallicCard } from "../../../components/MetallicCard"
 
 export function FightCardRow({ fight }: { fight: FightFromMock }) {
-  const idsKey = `${fight.fighter1.id},${fight.fighter2.id}`
-  const photosQueryKey = [
-    "fight-fighters-photos",
-    idsKey,
-    fight.fighter1.name,
-    fight.fighter2.name,
-  ] as const
-
-  const { data } = useQuery({
-    queryKey: photosQueryKey,
-    queryFn: async () => {
-      const params = new URLSearchParams()
-      params.set("ids", idsKey)
-      params.append("names", fight.fighter1.name)
-      params.append("names", fight.fighter2.name)
-      const res = await fetch(`/api/fight-fighters-photos?${params.toString()}`)
-      if (!res.ok) {
-        throw new Error(`Falha ao buscar fotos (${res.status})`)
-      }
-      return (await res.json()) as FightFightersPhotosResponse
-    },
-    staleTime: 1000 * 60 * 60,
-  })
-
-  const fighters = useMemo(() => {
-    const base = [fight.fighter1, fight.fighter2]
-    const map = data?.photosByBallId
-    if (!map)
-      return base.map((f) => ({ ...f, photo: undefined as string | undefined }))
-    return base.map((f) => ({
-      ...f,
-      photo: map[String(f.id)],
-    }))
-  }, [fight, data?.photosByBallId])
+  const { fighters } = useFighters({ fight })
 
   return (
-    <Card className="duration-300 ease-in-out hover:cursor-pointer hover:shadow-lg">
+    <MetallicCard className="duration-300 ease-in-out hover:cursor-pointer hover:scale-101">
       <CardContent className="flex w-full min-w-0 flex-col gap-5 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6 sm:py-4">
         {fighters.map((fighter, index) => (
           <div
@@ -112,6 +75,6 @@ export function FightCardRow({ fight }: { fight: FightFromMock }) {
           </div>
         ))}
       </CardContent>
-    </Card>
+    </MetallicCard>
   )
 }
