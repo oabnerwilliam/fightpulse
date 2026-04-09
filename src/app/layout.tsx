@@ -4,6 +4,7 @@ import "./globals.css"
 import { cn } from "@/lib/utils"
 import { Container } from "../components/Container"
 import { TanstackQueryProvider } from "../providers/query-client-provider"
+import { ThemeProvider } from "../providers/theme-provider"
 import { getLoggedUser } from "../services/user.service"
 import { AppHeader } from "../components/AppHeader"
 import { NuqsAdapter } from "nuqs/adapters/next"
@@ -32,16 +33,22 @@ export default async function RootLayout({
   const cachedUser = await getLoggedUser()
 
   return (
-    <html lang="pt-BR" className={cn("font-sans", inter.variable)}>
+    <html
+      lang="pt-BR"
+      className={cn("font-sans", inter.variable)}
+      suppressHydrationWarning
+    >
       <body className="antialiased">
-        <TanstackQueryProvider>
-          <NuqsAdapter>
-            <div className="flex min-h-screen flex-col bg-background">
-              {cachedUser && <AppHeader user={cachedUser} />}
-              <Container>{children}</Container>
-            </div>
-          </NuqsAdapter>
-        </TanstackQueryProvider>
+        <ThemeProvider>
+          <TanstackQueryProvider>
+            <NuqsAdapter>
+              <div className="flex min-h-screen flex-col bg-background">
+                {cachedUser && <AppHeader user={cachedUser} />}
+                <Container>{children}</Container>
+              </div>
+            </NuqsAdapter>
+          </TanstackQueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

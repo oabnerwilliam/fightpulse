@@ -1,7 +1,6 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import clsx from "clsx"
 import { createClient } from "../lib/supabase/client"
 import { useRouter } from "next/navigation"
 import { Logo } from "./Logo"
@@ -13,6 +12,7 @@ import {
 } from "./ui/dropdown-menu"
 import { headerStyles } from "../lib/header-styles"
 import { cn } from "../lib/utils"
+import { ThemeToggle } from "./ThemeToggle"
 
 export function AppHeader({ user }: { user: any }) {
   const router = useRouter()
@@ -26,10 +26,11 @@ export function AppHeader({ user }: { user: any }) {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 shadow-md">
+    <header className="fixed top-0 left-0 right-0 z-50 shadow-md bg-card">
       <div className={cn(headerStyles, "mx-auto container")}>
         <Logo />
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger className={ctaVisualClassName()}>
               {displayName}
