@@ -8,6 +8,7 @@ type FighterPhotoAvatarProps = {
   src?: string | null
   alt: string
   className: string
+  imgClassName?: string
   isLoading?: boolean
 }
 
@@ -15,6 +16,7 @@ export function FighterPhotoAvatar({
   src,
   alt,
   className,
+  imgClassName,
   isLoading = false,
 }: FighterPhotoAvatarProps) {
   const [loaded, setLoaded] = useState(false)
@@ -42,8 +44,9 @@ export function FighterPhotoAvatar({
         onLoad={() => setLoaded(true)}
         onError={() => setLoaded(true)}
         className={cn(
-          "size-full rounded-full object-cover",
+          "size-full rounded-full object-cover object-top",
           !loaded && "opacity-0",
+          imgClassName,
         )}
       />
     </div>

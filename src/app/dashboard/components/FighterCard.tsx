@@ -7,7 +7,7 @@ import {
 import { MetallicCard } from "../../../components/MetallicCard"
 
 export type Fighter = {
-  id: number
+  id: string
   name: string
   nickname: string
   photo: string

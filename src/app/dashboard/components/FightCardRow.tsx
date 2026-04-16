@@ -6,16 +6,15 @@ import {
   CardDescription,
   CardTitle,
 } from "@/components/ui/card"
-import { getCountryCode } from "@/app/dashboard/utils/functions"
 import type { FightFromMock } from "@/app/dashboard/utils/types"
 import { cn } from "@/lib/utils"
 import { useFighters } from "../hooks/useFighters"
 import { MetallicCard } from "../../../components/MetallicCard"
 import { FighterPhotoAvatar } from "./FighterPhotoAvatar"
+import { Flag } from "./Flag"
 
 export function FightCardRow({ fight }: { fight: FightFromMock }) {
   const { fighters, isLoading } = useFighters({ fight })
-
   return (
     <MetallicCard className="duration-300 ease-in-out hover:cursor-pointer hover:scale-101">
       <CardContent className="flex w-full min-w-0 flex-col gap-5 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6 sm:py-4">
@@ -31,11 +30,7 @@ export function FightCardRow({ fight }: { fight: FightFromMock }) {
           >
             {index === 0 ? (
               <>
-                <img
-                  alt={fighter.nationality}
-                  src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${getCountryCode(fighter.nationality)}.svg`}
-                  className="shrink-0 rounded-3xl size-10"
-                />
+                <Flag nationality={fighter.nationality} isLoading={isLoading} />
                 <FighterPhotoAvatar
                   src={fighter.photo}
                   alt={fighter.name}
@@ -44,14 +39,31 @@ export function FightCardRow({ fight }: { fight: FightFromMock }) {
                 />
               </>
             ) : null}
-            <div className="flex min-w-0 flex-col items-center justify-center text-center sm:min-w-0">
-              <CardTitle className="wrap-break-word text-lg font-bold sm:text-2xl">
+            <div
+              className={cn(
+                "flex min-w-0 flex-col justify-center",
+                index === 0 ? "items-start text-left" : "items-end text-right",
+              )}
+            >
+              <CardTitle
+                className={cn(
+                  "wrap-break-word text-lg font-bold sm:text-2xl",
+                  index === 0 ? "text-left" : "text-right",
+                )}
+              >
                 {fighter.name}
               </CardTitle>
-              <CardDescription className="flex flex-col items-center wrap-break-word">
-                <span className="text-sm text-muted-foreground">
-                  &quot;{fighter.nickname}&quot;
-                </span>
+              <CardDescription
+                className={cn(
+                  "flex flex-col wrap-break-word",
+                  index === 0 ? "items-start text-left" : "items-end text-right",
+                )}
+              >
+                {fighter.nickname && (
+                  <span className="text-sm text-muted-foreground">
+                    &quot;{fighter.nickname}&quot;
+                  </span>
+                )}
                 {fighter.record_wins}- {fighter.record_losses}-{" "}
                 {fighter.record_draws}
               </CardDescription>
@@ -62,13 +74,10 @@ export function FightCardRow({ fight }: { fight: FightFromMock }) {
                   src={fighter.photo}
                   alt={fighter.name}
                   className="size-14 sm:size-20"
+                  imgClassName="-scale-x-100"
                   isLoading={isLoading}
                 />
-                <img
-                  alt={fighter.nationality}
-                  src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${getCountryCode(fighter.nationality)}.svg`}
-                  className="shrink-0 rounded-3xl size-10"
-                />
+                <Flag nationality={fighter.nationality} isLoading={isLoading} />
               </>
             ) : null}
           </div>

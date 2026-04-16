@@ -14,7 +14,6 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import {
-  fightMock,
   parseEventTitle,
   removeFirstName,
 } from "@/app/dashboard/utils/functions"
@@ -24,6 +23,7 @@ import { FightCardRow } from "./FightCardRow"
 import { FighterPhotoAvatar } from "./FighterPhotoAvatar"
 import { MetallicCard } from "@/components/MetallicCard"
 import { useFighters } from "../hooks/useFighters"
+import { fightMock } from "../utils/mocks/ufc327"
 
 type EventCardProps = {
   event: Event
@@ -83,6 +83,7 @@ export function EventCard({ event }: EventCardProps) {
                       src={rightFighter.photo}
                       alt={rightFighter.name}
                       className="size-20 md:size-28"
+                      imgClassName="-scale-x-100"
                       isLoading={isLoading}
                     />
                     <p className="mt-2 wrap-break-word text-lg font-bold md:mt-3 md:text-2xl">
@@ -105,9 +106,12 @@ export function EventCard({ event }: EventCardProps) {
         </MetallicCard>
       </CollapsibleTrigger>
       <CollapsibleContent className="w-full min-w-0 flex flex-col gap-4">
-        {fightMock.data.map((fight) => (
-          <FightCardRow key={`${event.id}-${fight.id}`} fight={fight} />
-        ))}
+        {fightMock.data
+          .slice()
+          .reverse()
+          .map((fight) => (
+            <FightCardRow key={`${event.id}-${fight.id}`} fight={fight} />
+          ))}
       </CollapsibleContent>
     </Collapsible>
   )
