@@ -1,4 +1,4 @@
-import { fightMock } from "./functions"
+import { fightMock } from "./mocks/ufc327"
 
 export type FightFromMock = (typeof fightMock.data)[number]
 

@@ -2,7 +2,6 @@
 
 import { CardContent, CardDescription, CardTitle } from "@/components/ui/card"
 import { useFighters } from "@/app/dashboard/hooks/useFighters"
-import { fightMock, getCountryCode } from "@/app/dashboard/utils/functions"
 import type { FightFromMock } from "@/app/dashboard/utils/types"
 import { FighterPhotoAvatar } from "@/app/dashboard/components/FighterPhotoAvatar"
 import { MetallicCard } from "@/components/MetallicCard"
@@ -14,6 +13,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { cn } from "@/lib/utils"
+import { fightMock } from "../app/dashboard/utils/mocks/ufc327"
 
 type FightCarouselProps = {
   className?: string
@@ -24,51 +24,41 @@ function FightCarouselFightCard({ fight }: { fight: FightFromMock }) {
 
   return (
     <MetallicCard className="duration-300 ease-in-out">
-      <CardContent className="flex w-full min-w-0 flex-col gap-3 px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-4 sm:py-3">
+      <CardContent className="flex w-full min-w-0 flex-col gap-3 p-6 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4 sm:px-4 sm:py-3">
         {fighters.map((fighter, index) => (
           <div
             className={cn(
-              "flex min-w-0 items-center gap-2 sm:flex-1 sm:gap-3",
+              "flex  flex-col min-w-0 items-center gap-2 sm:flex-1 sm:gap-3",
               index === 0
                 ? "justify-center sm:justify-start"
                 : "justify-center sm:justify-end",
             )}
             key={fighter.id}
           >
-            {index === 0 ? (
-              <>
-                <FighterPhotoAvatar
-                  src={fighter.photo}
-                  alt={fighter.name}
-                  className="size-11 shrink-0 sm:size-14"
-                  isLoading={isLoading}
-                />
-              </>
-            ) : null}
+            <FighterPhotoAvatar
+              src={fighter.photo}
+              alt={fighter.name}
+              className="size-11 shrink-0 sm:size-24"
+              isLoading={isLoading}
+            />
             <div className="flex min-w-0 flex-col items-center justify-center text-center">
-              <CardTitle className="wrap-break-word text-base font-bold leading-tight sm:text-lg">
+              <CardTitle className="wrap-break-word text-base font-bold leading-tight sm:text-xl">
                 {fighter.name}
               </CardTitle>
               <CardDescription className="flex flex-col items-center gap-0.5 wrap-break-word">
-                <span className="text-xs text-muted-foreground">
-                  &quot;{fighter.nickname}&quot;
+                <span className="text-sm text-muted-foreground">
+                  {fighter.nickname && (
+                    <span className="text-sm text-muted-foreground">
+                      &quot;{fighter.nickname}&quot;
+                    </span>
+                  )}
                 </span>
-                <span className="text-xs tabular-nums">
+                <span className="text-sm tabular-nums">
                   {fighter.record_wins}-{fighter.record_losses}-
                   {fighter.record_draws}
                 </span>
               </CardDescription>
             </div>
-            {index === 1 ? (
-              <>
-                <FighterPhotoAvatar
-                  src={fighter.photo}
-                  alt={fighter.name}
-                  className="size-11 shrink-0 sm:size-14"
-                  isLoading={isLoading}
-                />
-              </>
-            ) : null}
           </div>
         ))}
       </CardContent>
@@ -87,11 +77,14 @@ export function FightCarousel({ className }: FightCarouselProps) {
         }}
       >
         <CarouselContent>
-          {fightMock.data.map((fight) => (
-            <CarouselItem key={fight.id}>
-              <FightCarouselFightCard fight={fight} />
-            </CarouselItem>
-          ))}
+          {fightMock.data
+            .slice()
+            .reverse()
+            .map((fight) => (
+              <CarouselItem key={fight.id}>
+                <FightCarouselFightCard fight={fight} />
+              </CarouselItem>
+            ))}
         </CarouselContent>
         <CarouselPrevious
           className="left-1 border-border bg-background/90 shadow-sm sm:left-2"

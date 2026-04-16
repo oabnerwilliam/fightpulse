@@ -1,32 +1,18 @@
 import { NextRequest } from "next/server"
 import { prisma } from "@/lib/prisma"
 import {
-  fetchFighterByApiSportsId,
-  fetchFightersByName,
-  firstFighterFromResponse,
-  type UpstreamFightersPayload,
-} from "@/lib/api-sports-fighters"
-
-function photoFromUpstreamJson(data: UpstreamFightersPayload): string | null {
-  const fighter = firstFighterFromResponse(data.response)
-  const photo = fighter?.photo
-  return typeof photo === "string" && photo.length > 0 ? photo : null
-}
+  fetchAllFightersJson,
+  fetchFighterBySlug,
+  findBestFighterByName,
+  photoFromOctagonFighter,
+} from "@/lib/octagon-fighters"
 
 export async function GET(request: NextRequest) {
   const idsParam = request.nextUrl.searchParams.get("ids")
   const names = request.nextUrl.searchParams.getAll("names")
-  const apiKey = process.env.API_SPORTS_API_KEY
 
   if (!idsParam?.trim()) {
     return Response.json({ error: "ids query required" }, { status: 400 })
-  }
-
-  if (!apiKey) {
-    return Response.json(
-      { error: "API_SPORTS_API_KEY is not configured" },
-      { status: 500 },
-    )
   }
 
   const ballIds = idsParam
@@ -51,9 +37,19 @@ export async function GET(request: NextRequest) {
   const rows = await prisma.fighterExternalIdMap.findMany({
     where: { ball_dont_lie_id: { in: ballIds } },
   })
-  const apiIdByBallId = new Map(
-    rows.map((r) => [r.ball_dont_lie_id, r.api_sports_id]),
+  const slugByBallId = new Map(
+    rows.map((r) => [r.ball_dont_lie_id, r.octagon_slug]),
   )
+
+  let map: Awaited<ReturnType<typeof fetchAllFightersJson>>
+  try {
+    map = await fetchAllFightersJson()
+  } catch {
+    return Response.json(
+      { error: "Failed to load fighter roster" },
+      { status: 502 },
+    )
+  }
 
   const photosByBallId: Record<string, string> = {}
 
@@ -65,20 +61,21 @@ export async function GET(request: NextRequest) {
       let photo: string | null = null
 
       if (trimmedName.length > 0) {
-        const nameRes = await fetchFightersByName(trimmedName, apiKey)
-        const nameData = (await nameRes.json()) as UpstreamFightersPayload
-        if (nameRes.ok) {
-          photo = photoFromUpstreamJson(nameData)
+        const hit = findBestFighterByName(map, trimmedName)
+        if (hit) {
+          photo = photoFromOctagonFighter(hit.fighter)
         }
       }
 
       if (photo === null) {
-        const apiSportsId = apiIdByBallId.get(ballId)
-        if (apiSportsId !== undefined) {
-          const idRes = await fetchFighterByApiSportsId(apiSportsId, apiKey)
-          const idData = (await idRes.json()) as UpstreamFightersPayload
-          if (idRes.ok) {
-            photo = photoFromUpstreamJson(idData)
+        const slug = slugByBallId.get(ballId)
+        if (slug) {
+          const fromRoster = map[slug]
+          if (fromRoster) {
+            photo = photoFromOctagonFighter(fromRoster)
+          } else {
+            const fetched = await fetchFighterBySlug(slug)
+            photo = fetched ? photoFromOctagonFighter(fetched) : null
           }
         }
       }

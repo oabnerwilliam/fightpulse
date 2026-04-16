@@ -23,6 +23,6 @@ model User {
 model FighterExternalIdMap {
   id String @id @default(uuid())
   ball_dont_lie_id Int @unique
-  api_sports_id Int @unique
+  octagon_slug String @unique
   @@map("fighter_external_id_map")
 }
