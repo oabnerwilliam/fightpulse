@@ -45,8 +45,8 @@ export function EventCard({ event }: EventCardProps) {
       <CollapsibleTrigger className="w-full" onClick={handleOpen}>
         <MetallicCard className="relative flex flex-col gap-0 py-6 duration-300 ease-in-out hover:cursor-pointer sm:py-2 hover:scale-102">
           <CardContent className="pr-12 sm:pr-14">
-            <div className="grid grid-cols-2 gap-4 md:py-6 md:flex md:flex-row md:items-center md:justify-between md:gap-8">
-              <div className="order-2 flex min-w-0 flex-col items-center text-center md:order-1 md:flex-1">
+            <div className="relative grid grid-cols-2 gap-4 md:min-h-[170px] md:grid-cols-1 md:items-center md:px-44 md:py-14">
+              <div className="order-2 flex min-w-0 flex-col items-center text-center md:absolute md:left-10 md:top-1/2 md:w-40 md:-translate-y-1/2 md:order-1">
                 {leftFighter ? (
                   <>
                     <FighterPhotoAvatar
@@ -64,7 +64,7 @@ export function EventCard({ event }: EventCardProps) {
                 ) : null}
               </div>
 
-              <div className="order-1 col-span-2 flex min-w-0 flex-col items-center text-center md:order-2 md:col-auto md:shrink-0">
+              <div className="order-1 col-span-2 flex min-w-0 flex-col items-center text-center md:order-2 md:col-auto">
                 <CardTitle className="wrap-break-word text-lg font-bold leading-tight md:text-2xl">
                   {eventName}
                 </CardTitle>
@@ -76,7 +76,7 @@ export function EventCard({ event }: EventCardProps) {
                 </CardDescription>
               </div>
 
-              <div className="order-3 flex min-w-0 flex-col items-center text-center md:flex-1">
+              <div className="order-3 flex min-w-0 flex-col items-center text-center md:absolute md:right-10 md:top-1/2 md:w-40 md:-translate-y-1/2">
                 {rightFighter ? (
                   <>
                     <FighterPhotoAvatar

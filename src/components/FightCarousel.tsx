@@ -23,7 +23,7 @@ function FightCarouselFightCard({ fight }: { fight: FightFromMock }) {
   const { fighters, isLoading } = useFighters({ fight })
 
   return (
-    <MetallicCard className="duration-300 ease-in-out">
+    <MetallicCard className="duration-300 ease-in-out shadow-none dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.1),inset_0_-2px_0_rgba(0,0,0,0.4),0_12px_40px_rgba(0,0,0,0.45)]">
       <CardContent className="flex w-full min-w-0 flex-col gap-3 p-6 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4 sm:px-4 sm:py-3">
         {fighters.map((fighter, index) => (
           <div
@@ -81,7 +81,10 @@ export function FightCarousel({ className }: FightCarouselProps) {
             .slice()
             .reverse()
             .map((fight) => (
-              <CarouselItem key={fight.id}>
+              <CarouselItem
+                key={fight.id}
+                className="hover:cursor-pointer hover:scale-102 duration-300 ease-in-out"
+              >
                 <FightCarouselFightCard fight={fight} />
               </CarouselItem>
             ))}
